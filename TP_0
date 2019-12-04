@@ -1,0 +1,587 @@
+TP SQL
+
+
+sqlite3
+
+attach database 'caserne.db' as data;
+.tables
+select * from data.Caserne;
+.mode column
+.headers ON
+select * from data.camion;
+select * from data.caserne;
+insert into data.camion values (5,1,50,'error')   Ca donne  une erreur car on ajout un camion dont la cle etrangere qui fqit reference q la caserne n existe pas
+delete from data.caserne where Id_caserne=1       //
+
+
+
+
+
+
+
+
+
+
+
+3802928@pc4009$/nfs/home/sasl/eleves/main/3802928/TP/BDD/TP-1 sqlite3
+SQLite version 3.11.0 2016-02-15 17:29:24
+Enter ".help" for usage hints.
+Connected to a transient in-memory database.
+Use ".open FILENAME" to reopen on a persistent database.
+sqlite> attach database 'caserne.db' as data
+   ...> ;
+sqlite> .tables
+data.Adresse    data.Caserne    data.Fabricant  data.Pompier    data.Ville
+data.Camion     data.Citerne    data.Modele     data.Protege
+sqlite> .tables
+data.Adresse    data.Caserne    data.Fabricant  data.Pompier    data.Ville
+data.Camion     data.Citerne    data.Modele     data.Protege
+sqlite> PRAGMA foreign_keys = ON;
+sqlite> select * from data.Caserne
+   ...> ;
+1|8|45|36|Canard|83620|Le Luc
+2|10|60|136|Pigeon|83242|Draguignan
+3|10|4|48|Alouette|83666|Shadok
+4|3|17|1|Chouette|83666|Shadok
+sqlite> .mode column
+sqlite> select * from data.Caserne;
+1           8             45             36          Canard      83620       Le Luc
+2           10            60             136         Pigeon      83242       Draguignan
+3           10            4              48          Alouette    83666       Shadok
+4           3             17             1           Chouette    83666       Shadok
+sqlite> .headers ON
+sqlite> select * from data.Caserne;
+Id_caserne  Capa_camions  Capa_pompiers  Num_rue     Nom_rue     CP          Nom_ville
+----------  ------------  -------------  ----------  ----------  ----------  ----------
+1           8             45             36          Canard      83620       Le Luc
+2           10            60             136         Pigeon      83242       Draguignan
+3           10            4              48          Alouette    83666       Shadok
+4           3             17             1           Chouette    83666       Shadok
+sqlite> select * from data.Caserne;
+Id_caserne  Capa_camions  Capa_pompiers  Num_rue     Nom_rue     CP          Nom_ville
+----------  ------------  -------------  ----------  ----------  ----------  ----------
+1           8             45             36          Canard      83620       Le Luc
+2           10            60             136         Pigeon      83242       Draguignan
+3           10            4              48          Alouette    83666       Shadok
+4           3             17             1           Chouette    83666       Shadok
+sqlite> select * from data.camion
+   ...> ;
+Id_caserne  Id_camion   Nb_places   Modele
+----------  ----------  ----------  ----------
+1           1           38          Daminator
+1           2           52          Laignel_vn
+1           3           152         Truite
+1           4           72          GrosColoss
+2           1           95          Laignel_vn
+2           2           87          Truite
+2           3           39          Laignel_vn
+2           4           95          GrosColoss
+3           1           55          Daminator
+3           2           35          Truite
+3           3           58          Daminator
+4           1           51          Laignel_vn
+sqlite> select * from data.caserne;
+Id_caserne  Capa_camions  Capa_pompiers  Num_rue     Nom_rue     CP          Nom_ville
+----------  ------------  -------------  ----------  ----------  ----------  ----------
+1           8             45             36          Canard      83620       Le Luc
+2           10            60             136         Pigeon      83242       Draguignan
+3           10            4              48          Alouette    83666       Shadok
+4           3             17             1           Chouette    83666       Shadok
+sqlite> insert into data.camion values
+   ...> (5,1,50,'error')
+   ...> ;
+Error: FOREIGN KEY constraint failed
+sqlite> ^C
+sqlite> ^C
+sqlite> delete from data.caserne
+   ...> ;
+Error: FOREIGN KEY constraint failed
+sqlite> delete from data.caserne where Id_caserne=1
+   ...> ;
+Error: FOREIGN KEY constraint failed
+sqlite> .tables
+data.Adresse    data.Caserne    data.Fabricant  data.Pompier    data.Ville
+data.Camion     data.Citerne    data.Modele     data.Protege
+sqlite> select from data.ville Name
+   ...> ;
+Error: near "from": syntax error
+sqlite> select FROM data.ville Name
+   ...> ;
+Error: near "FROM": syntax error
+sqlite> select FROM data.Ville Name
+   ...> ;
+Error: near "FROM": syntax error
+sqlite> .tables data.ville
+sqlite> ;
+sqlite> ;
+sqlite> select * from data.ville
+   ...> ;
+Nom_ville   Nb_hab      CP
+----------  ----------  ----------
+Draguignan  20000       83240
+Draguignan  300         83242
+Draguignan  2400        83244
+Brignoles   1650        83620
+Le Luc      4580        83620
+Lajoie      25000       83450
+Shadok      14630       83666
+Papou       3655        83220
+Pierrefiqu  134         83620
+Montreuil   20400       83100
+Trantown    18500       83220
+sqlite> select Nom_ville from data.ville;
+Nom_ville
+----------
+Brignoles
+Draguignan
+Draguignan
+Draguignan
+Lajoie
+Le Luc
+Montreuil
+Papou
+Pierrefiqu
+Shadok
+Trantown
+sqlite> select Nom_ville from ville;
+Nom_ville
+----------
+Brignoles
+Draguignan
+Draguignan
+Draguignan
+Lajoie
+Le Luc
+Montreuil
+Papou
+Pierrefiqu
+Shadok
+Trantown
+sqlite> select Nom_ville from ville;
+Nom_ville
+----------
+Brignoles
+Draguignan
+Draguignan
+Draguignan
+Lajoie
+Le Luc
+Montreuil
+Papou
+Pierrefiqu
+Shadok
+Trantown
+sqlite> select Nom,Prenom from pompier;
+Nom         Prenom
+----------  ----------
+Marchand    Louis
+Valjean     Jean
+Antoinette  Marie
+Montant     Yves
+Montant     Sylvain
+Savairien   Jean
+Conchon     Sylvain
+Jumper      Jolly
+sqlite> select ville from shadok
+   ...> ;
+Error: no such table: shadok
+sqlite> select ville from Shadok
+   ...> ;
+Error: no such table: Shadok
+sqlite> .tables
+data.Adresse    data.Caserne    data.Fabricant  data.Pompier    data.Ville
+data.Camion     data.Citerne    data.Modele     data.Protege
+sqlite> select ville from caserne
+   ...> ;
+Error: no such column: ville
+sqlite> select ville from casern
+   ...>
+   ...> ;
+Error: no such table: casern
+sqlite> select * from caserne;
+Id_caserne  Capa_camions  Capa_pompiers  Num_rue     Nom_rue     CP          Nom_ville
+----------  ------------  -------------  ----------  ----------  ----------  ----------
+1           8             45             36          Canard      83620       Le Luc
+2           10            60             136         Pigeon      83242       Draguignan
+3           10            4              48          Alouette    83666       Shadok
+4           3             17             1           Chouette    83666       Shadok
+sqlite> select Id_Caserne Nom_ville from caserne where nom_ville='shadok'
+   ...> ;
+sqlite> ;
+sqlite> select Id_Caserne Nom_ville from caserne where nom_ville='Shadok'
+   ...> ;
+Nom_ville
+----------
+3
+4
+sqlite> select Id_Caserne Nom_ville from caserne where nom_ville='Shadok';
+Nom_ville
+----------
+3
+4
+sqlite> select Id_Caserne from caserne where nom_ville='Shadok';
+Id_caserne
+----------
+3
+4
+sqlite> select Id_Caserne from caserne where nom_ville='Shadok';
+Id_caserne
+----------
+3
+4
+sqlite> select Id_Caserne from caserne where nom_ville='Shadok';
+Id_caserne
+----------
+3
+4
+sqlite> select Id_Caserne from caserne where nom_ville='Shadok';
+Id_caserne
+----------
+3
+4
+sqlite> select Id_Caserne from caserne where nom_ville='Shadok';
+Id_caserne
+----------
+3
+4
+sqlite> select Id_Caserne from caserne where nom_ville='Shadok';
+Id_caserne
+----------
+3
+4
+sqlite> select * from caserne;
+Id_caserne  Capa_camions  Capa_pompiers  Num_rue     Nom_rue     CP          Nom_ville
+----------  ------------  -------------  ----------  ----------  ----------  ----------
+1           8             45             36          Canard      83620       Le Luc
+2           10            60             136         Pigeon      83242       Draguignan
+3           10            4              48          Alouette    83666       Shadok
+4           3             17             1           Chouette    83666       Shadok
+sqlite> select Nom_ville from caserne where Id_caserne=1;
+Nom_ville
+----------
+Le Luc
+sqlite> .tables
+data.Adresse    data.Caserne    data.Fabricant  data.Pompier    data.Ville
+data.Camion     data.Citerne    data.Modele     data.Protege
+sqlite> select Nom_ville from protege  where Id_caserne=1;
+Nom_ville
+----------
+Brignoles
+Draguignan
+Le Luc
+sqlite> .tables
+data.Adresse    data.Caserne    data.Fabricant  data.Pompier    data.Ville
+data.Camion     data.Citerne    data.Modele     data.Protege
+sqlite> select * from ville
+   ...> ;
+Nom_ville   Nb_hab      CP
+----------  ----------  ----------
+Draguignan  20000       83240
+Draguignan  300         83242
+Draguignan  2400        83244
+Brignoles   1650        83620
+Le Luc      4580        83620
+Lajoie      25000       83450
+Shadok      14630       83666
+Papou       3655        83220
+Pierrefiqu  134         83620
+Montreuil   20400       83100
+Trantown    18500       83220
+sqlite> select * from ville
+   ...> order by Nb_hab
+   ...> ;
+Nom_ville     Nb_hab      CP
+------------  ----------  ----------
+Pierrefiques  134         83620
+Draguignan    300         83242
+Brignoles     1650        83620
+Draguignan    2400        83244
+Papou         3655        83220
+Le Luc        4580        83620
+Shadok        14630       83666
+Trantown      18500       83220
+Draguignan    20000       83240
+Montreuil     20400       83100
+Lajoie        25000       83450
+sqlite> order by Nb_hab Desc
+   ...> ;
+Error: near "order": syntax error
+sqlite> select * from ville
+   ...> order by Nb_hab Desc ;
+Nom_ville   Nb_hab      CP
+----------  ----------  ----------
+Lajoie      25000       83450
+Montreuil   20400       83100
+Draguignan  20000       83240
+Trantown    18500       83220
+Shadok      14630       83666
+Le Luc      4580        83620
+Papou       3655        83220
+Draguignan  2400        83244
+Brignoles   1650        83620
+Draguignan  300         83242
+Pierrefiqu  134         83620
+sqlite> select * from camion
+   ...> ;
+Id_caserne  Id_camion   Nb_places   Modele
+----------  ----------  ----------  ----------
+1           1           38          Daminator
+1           2           52          Laignel_vn
+1           3           152         Truite
+1           4           72          GrosColoss
+2           1           95          Laignel_vn
+2           2           87          Truite
+2           3           39          Laignel_vn
+2           4           95          GrosColoss
+3           1           55          Daminator
+3           2           35          Truite
+3           3           58          Daminator
+4           1           51          Laignel_vn
+sqlite> select * from citernes;
+Error: no such table: citernes
+sqlite> select * from citerne;
+Id_caserne  Id_camion   Contenance
+----------  ----------  ----------
+1           1           800
+1           2           600
+1           3           900
+2           1           2000
+2           2           500
+2           4           450
+3           1           1200
+sqlite> select Ci.* from camion Ca, citerne Ci where Ca.Id_caserne=Ci.Id_caserne and Ca.Id_caserne=Ci.Id_caserne;
+Id_caserne  Id_camion   Contenance
+----------  ----------  ----------
+1           1           800
+1           1           800
+1           1           800
+1           1           800
+1           2           600
+1           2           600
+1           2           600
+1           2           600
+1           3           900
+1           3           900
+1           3           900
+1           3           900
+2           1           2000
+2           1           2000
+2           1           2000
+2           1           2000
+2           2           500
+2           2           500
+2           2           500
+2           2           500
+2           4           450
+2           4           450
+2           4           450
+2           4           450
+3           1           1200
+3           1           1200
+3           1           1200
+sqlite> select Ci.* Ca.model from camion Ca, citerne Ci where Ca.Id_caserne=Ci.Id_caserne and Ca.Id_caserne=Ci.Id_caserne;
+Error: near "Ca": syntax error
+sqlite> select Ci.* Ca.modele from camion Ca, citerne Ci where Ca.Id_caserne=Ci.Id_caserne and Ca.Id_caserne=Ci.Id_caserne;
+Error: near "Ca": syntax error
+sqlite> select Ci.*, Ca.modele from camion Ca, citerne Ci where Ca.Id_caserne=Ci.Id_caserne and Ca.Id_caserne=Ci.Id_caserne;
+Id_caserne  Id_camion   Contenance  Modele
+----------  ----------  ----------  ----------
+1           1           800         Daminator
+1           2           600         Daminator
+1           3           900         Daminator
+1           1           800         Laignel_vn
+1           2           600         Laignel_vn
+1           3           900         Laignel_vn
+1           1           800         Truite
+1           2           600         Truite
+1           3           900         Truite
+1           1           800         GrosColoss
+1           2           600         GrosColoss
+1           3           900         GrosColoss
+2           1           2000        Laignel_vn
+2           2           500         Laignel_vn
+2           4           450         Laignel_vn
+2           1           2000        Truite
+2           2           500         Truite
+2           4           450         Truite
+2           1           2000        Laignel_vn
+2           2           500         Laignel_vn
+2           4           450         Laignel_vn
+2           1           2000        GrosColoss
+2           2           500         GrosColoss
+2           4           450         GrosColoss
+3           1           1200        Daminator
+3           1           1200        Truite
+3           1           1200        Daminator
+sqlite> select Ci.*, Ca.modele from camion Ca, citerne Ci where ( Ca.Id_caserne=Ci.Id_caserne and Ca.Id_caserne=Ci.Id_caserne );
+Id_caserne  Id_camion   Contenance  Modele
+----------  ----------  ----------  ----------
+1           1           800         Daminator
+1           2           600         Daminator
+1           3           900         Daminator
+1           1           800         Laignel_vn
+1           2           600         Laignel_vn
+1           3           900         Laignel_vn
+1           1           800         Truite
+1           2           600         Truite
+1           3           900         Truite
+1           1           800         GrosColoss
+1           2           600         GrosColoss
+1           3           900         GrosColoss
+2           1           2000        Laignel_vn
+2           2           500         Laignel_vn
+2           4           450         Laignel_vn
+2           1           2000        Truite
+2           2           500         Truite
+2           4           450         Truite
+2           1           2000        Laignel_vn
+2           2           500         Laignel_vn
+2           4           450         Laignel_vn
+2           1           2000        GrosColoss
+2           2           500         GrosColoss
+2           4           450         GrosColoss
+3           1           1200        Daminator
+3           1           1200        Truite
+3           1           1200        Daminator
+sqlite> select Ci.*, Ca.modele from camion Ca, citerne Ci where ( Ca.Id_caserne=Ci.Id_caserne and Ca.Id_camion=Ci.Id_camion );
+Id_caserne  Id_camion   Contenance  Modele
+----------  ----------  ----------  ----------
+1           1           800         Daminator
+1           2           600         Laignel_vn
+1           3           900         Truite
+2           1           2000        Laignel_vn
+2           2           500         Truite
+2           4           450         GrosColoss
+3           1           1200        Daminator
+sqlite> select * from protege
+   ...> ;
+Id_caserne  Nom_ville   CP
+----------  ----------  ----------
+1           Draguignan  83240
+1           Brignoles   83620
+1           Le Luc      83620
+4           Le Luc      83620
+2           Papou       83220
+2           Draguignan  83240
+3           Shadok      83666
+3           Draguignan  83240
+4           Brignoles   83620
+4           Draguignan  83240
+sqlite> select * from casernes;
+Error: no such table: casernes
+sqlite> select * from caserne;
+Id_caserne  Capa_camions  Capa_pompiers  Num_rue     Nom_rue     CP          Nom_ville
+----------  ------------  -------------  ----------  ----------  ----------  ----------
+1           8             45             36          Canard      83620       Le Luc
+2           10            60             136         Pigeon      83242       Draguignan
+3           10            4              48          Alouette    83666       Shadok
+4           3             17             1           Chouette    83666       Shadok
+sqlite> selecte P.Id_caserne,P.Nom_ville,C.Num_rue,C.Nom_rue,C.CP,C.Nom_ville from protege P, caserne C where(P.Id_caserne=C.Id_caserne and P.nom_ville='Draguignan')
+   ...> ;
+Error: near "selecte": syntax error
+sqlite> select P.Id_caserne,P.Nom_ville,C.Num_rue,C.Nom_rue,C.CP,C.Nom_ville from protege P, caserne C where(P.Id_caserne=C.Id_caserne and P.nom_ville='Draguignan')
+   ...> ;
+Id_caserne  Nom_ville   Num_rue     Nom_rue     CP          Nom_ville
+----------  ----------  ----------  ----------  ----------  ----------
+1           Draguignan  36          Canard      83620       Le Luc
+2           Draguignan  136         Pigeon      83242       Draguignan
+3           Draguignan  48          Alouette    83666       Shadok
+4           Draguignan  1           Chouette    83666       Shadok
+sqlite> select * from citerne
+   ...> ;
+Id_caserne  Id_camion   Contenance
+----------  ----------  ----------
+1           1           800
+1           2           600
+1           3           900
+2           1           2000
+2           2           500
+2           4           450
+3           1           1200
+sqlite> SELECT COUNT(*) FROM citerne;
+COUNT(*)
+----------
+7
+sqlite> SELECT COUNT(Id_caserne) FROM citerne;
+COUNT(Id_caserne)
+-----------------
+7
+sqlite> SELECT Max(Contenance) FROM citerne;
+Max(Contenance)
+---------------
+2000
+sqlite> SELECT Continent, SUM(Population) AS Population_Totale FROM country
+   ...> GROUP BY Continent ORDER BY Population_Totale DESC
+   ...>
+   ...>
+   ...> ;
+Error: no such table: country
+sqlite> Select Id_caserne, Moy(contenance) as moyenne from citene group by Id_caserne
+   ...> ;
+Error: no such table: citene
+sqlite> Select Id_caserne, Moy(contenance) as moyenne from citerne group by Id_caserne
+   ...> ;
+Error: no such function: Moy
+sqlite> Select Id_caserne, Avg(contenance) as moyenne from citerne group by Id_caserne
+   ...> ;
+Id_caserne  moyenne
+----------  ----------------
+1           766.666666666667
+2           983.333333333333
+3           1200.0
+sqlite>
+
+
+4.1
+select distinct Nom_ville from ville;
+select Nom, Prenom from pompier
+select Id_caserne, Nom_ville from caserne where nom_ville="Shadok";
+select Id_caserne, Nom_ville from caserne where Id_caserne=1
+
+select * from ville
+   ...> order by CP Desc;
+
+select camion.Id_caserne,camion.Id_camion,camion.Nb_places,camion.Modele from camion,citerne where (camion.Id_caserne=citerne.Id_caserne and camion.Id_camion=citerne.Id_camion );
+
+select * from caserne, protege where( caserne.id_caserne=protege.Id_caserne and  protege.Nom_ville="Draguignan") ;
+
+select count (Id_caserne) from caserne;
+
+select max(contenance) from citerne;
+
+select Id_caserne, avg(contenance) from citerne group by Id_caserne;
+
+select count (Id_caserne),nom_ville  from protege group by nom_ville;
+
+select Id_caserne,sum(contenance) from citerne group by id_caserne having sum(contenance)>2000;
+
+select * from pompier where ( nom like "M%")
+
+4.2
+
+Count caserne: select count(*) FROM caserne;
+
+select caserne.Id_caserne,pompier.nom,pompier.prenom from pompier,caserne where ( caserne.id_caserne=pompier.Id_caserne and caserne.Nom_ville ="Draguignan");
+
+select P1.Id_caserne, P1.Nom_ville, P1.CP from protege P1 join protege P2 ON (P1.Id_caserne=P2.Id_caserne and P1.Nom_ville="Draguignan" and P2.Nom_ville="Le Luc");
+
+ ou 
+
+select P1.Id_caserne, P1.Nom_ville, P1.CP from protege P1 join protege P2 ON P1.Id_caserne=P2.Id_caserne where (P1.Nom_ville="Draguignan" and P2.Nom_ville="Le Luc");
+
+SELECT * FROM pompier NATURAL JOIN adresse where (KM>5) ( pas bien mais ici marche )
+
+
+on ---------> jointure
+where ------>
+
+join -----------> joindre 2 tableau et on laisse le where opur le contenu 
+
+4) SELECT * FROM pompier P1  JOIN  adresse A on (P1.Nom_rue=A.Nom_rue and P1.Nom_ville=A.nom_ville and P1.CP=A.cp and A.num_rue=P1.num_rue ) where KM>5;
+
+5)select * from pompier P join Ville V on(P.CP=V.CP and P.Nom_ville=V.Nom_ville) where ( P.Nom_ville= 'Le Luc' or Nb_hab>=20000) ; 
+
+6)
+
+
+
